@@ -59,7 +59,7 @@ export function OwnershipTable({ state }: OwnershipTableProps) {
 
   return (
     <section style={{ marginTop: '2rem' }}>
-      <h2>Pick Ownership Matrix</h2>
+      <h2 style={{ color: '#f0f0f0', textAlign: 'center' }}>Pick Ownership Matrix</h2>
       <div style={{ overflowX: 'auto' }}>
         <table
           style={{
@@ -67,6 +67,9 @@ export function OwnershipTable({ state }: OwnershipTableProps) {
             width: '100%',
             fontSize: '0.9rem',
             marginTop: '1rem',
+            backgroundColor: '#2a2a2a',
+            borderRadius: '8px',
+            overflow: 'hidden',
           }}
         >
           <thead>
@@ -75,9 +78,10 @@ export function OwnershipTable({ state }: OwnershipTableProps) {
               <th
                 rowSpan={2}
                 style={{
-                  border: '1px solid #ddd',
+                  border: '1px solid #444',
                   padding: '0.5rem',
-                  backgroundColor: '#f5f5f5',
+                  backgroundColor: '#333',
+                  color: '#f0f0f0',
                   textAlign: 'left',
                   position: 'sticky',
                   left: 0,
@@ -91,9 +95,10 @@ export function OwnershipTable({ state }: OwnershipTableProps) {
                   key={year}
                   colSpan={rounds.length}
                   style={{
-                    border: '1px solid #ddd',
+                    border: '1px solid #444',
                     padding: '0.5rem',
-                    backgroundColor: '#f5f5f5',
+                    backgroundColor: '#333',
+                    color: '#f0f0f0',
                     textAlign: 'center',
                     fontWeight: 'bold',
                   }}
@@ -109,9 +114,10 @@ export function OwnershipTable({ state }: OwnershipTableProps) {
                   <th
                     key={`${year}-${round}`}
                     style={{
-                      border: '1px solid #ddd',
+                      border: '1px solid #444',
                       padding: '0.5rem',
-                      backgroundColor: '#f8f8f8',
+                      backgroundColor: '#3a3a3a',
+                      color: '#f0f0f0',
                       textAlign: 'center',
                       minWidth: '120px',
                       fontSize: '0.85rem',
@@ -128,10 +134,11 @@ export function OwnershipTable({ state }: OwnershipTableProps) {
               <tr key={team.id}>
                 <td
                   style={{
-                    border: '1px solid #ddd',
+                    border: '1px solid #444',
                     padding: '0.5rem',
                     fontWeight: 'bold',
-                    backgroundColor: '#f9f9f9',
+                    backgroundColor: '#333',
+                    color: '#e0e0e0',
                     position: 'sticky',
                     left: 0,
                     zIndex: 5,
@@ -146,9 +153,10 @@ export function OwnershipTable({ state }: OwnershipTableProps) {
                       <td
                         key={`${team.id}-${year}-${round}`}
                         style={{
-                          border: '1px solid #ddd',
+                          border: '1px solid #444',
                           padding: '0.5rem',
                           verticalAlign: 'top',
+                          backgroundColor: '#2a2a2a',
                         }}
                       >
                         {picks.length > 0 ? (
@@ -166,19 +174,19 @@ export function OwnershipTable({ state }: OwnershipTableProps) {
                                     marginBottom: '0.25rem',
                                     padding: '0.25rem',
                                     backgroundColor: isLocked 
-                                      ? '#ffebee' 
+                                      ? '#4a2a2a' 
                                       : isOriginal 
-                                        ? '#e8f5e9' 
-                                        : '#fff3e0',
+                                        ? '#2a4a2a' 
+                                        : '#4a3a2a',
                                     borderRadius: '3px',
                                     fontSize: '0.85rem',
-                                    border: isLocked ? '2px solid #f44336' : 'none',
+                                    border: isLocked ? '2px solid #f44336' : isOriginal ? '1px solid #4caf50' : '1px solid #ff9800',
                                     opacity: isLocked ? 0.7 : 1,
                                   }}
                                 >
                                   {isLocked && (
                                     <div style={{ 
-                                      color: '#d32f2f', 
+                                      color: '#ff6b6b', 
                                       fontSize: '0.7rem', 
                                       fontWeight: 'bold',
                                       marginBottom: '0.25rem',
@@ -187,15 +195,15 @@ export function OwnershipTable({ state }: OwnershipTableProps) {
                                     </div>
                                   )}
                                   {isOriginal ? (
-                                    <div style={{ fontWeight: 'bold', color: '#2e7d32' }}>
+                                    <div style={{ fontWeight: 'bold', color: '#4caf50' }}>
                                       ✓ Own
                                     </div>
                                   ) : (
                                     <div>
-                                      <div style={{ color: '#666', fontSize: '0.75rem' }}>
+                                      <div style={{ color: '#aaa', fontSize: '0.75rem' }}>
                                         Original
                                       </div>
-                                      <div style={{ color: '#d84315', fontWeight: 'bold' }}>
+                                      <div style={{ color: '#ff9800', fontWeight: 'bold' }}>
                                         → {getTeamName(currentOwner || '')}
                                       </div>
                                     </div>
@@ -205,7 +213,7 @@ export function OwnershipTable({ state }: OwnershipTableProps) {
                             })}
                           </div>
                         ) : (
-                          <span style={{ color: '#ccc' }}>—</span>
+                          <span style={{ color: '#666' }}>—</span>
                         )}
                       </td>
                     );

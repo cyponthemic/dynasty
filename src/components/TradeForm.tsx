@@ -149,38 +149,38 @@ export function TradeForm({ state, onSubmit, onCancel, onError }: TradeFormProps
     <form
       onSubmit={handleSubmit}
       style={{
-        border: '1px solid #ddd',
+        border: '1px solid #444',
         borderRadius: '8px',
         padding: '1.5rem',
         marginTop: '1rem',
-        backgroundColor: '#fafafa',
+        backgroundColor: '#2a2a2a',
       }}
     >
-      <h3 style={{ marginTop: 0 }}>Create New Trade</h3>
+      <h3 style={{ marginTop: 0, color: '#f0f0f0' }}>Create New Trade</h3>
 
       <div style={{ marginBottom: '1rem' }}>
-        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>
+        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold', color: '#f0f0f0' }}>
           Picks:
         </label>
         <table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: '0.5rem' }}>
           <thead>
-            <tr style={{ backgroundColor: '#f0f0f0' }}>
-              <th style={{ padding: '0.5rem', border: '1px solid #ddd', fontSize: '0.85rem' }}>
+            <tr style={{ backgroundColor: '#333' }}>
+              <th style={{ padding: '0.5rem', border: '1px solid #444', fontSize: '0.85rem', color: '#f0f0f0' }}>
                 From Team
               </th>
-              <th style={{ padding: '0.5rem', border: '1px solid #ddd', fontSize: '0.85rem' }}>
+              <th style={{ padding: '0.5rem', border: '1px solid #444', fontSize: '0.85rem', color: '#f0f0f0' }}>
                 To Team
               </th>
-              <th style={{ padding: '0.5rem', border: '1px solid #ddd', fontSize: '0.85rem' }}>
+              <th style={{ padding: '0.5rem', border: '1px solid #444', fontSize: '0.85rem', color: '#f0f0f0' }}>
                 Year
               </th>
-              <th style={{ padding: '0.5rem', border: '1px solid #ddd', fontSize: '0.85rem' }}>
+              <th style={{ padding: '0.5rem', border: '1px solid #444', fontSize: '0.85rem', color: '#f0f0f0' }}>
                 Round
               </th>
-              <th style={{ padding: '0.5rem', border: '1px solid #ddd', fontSize: '0.85rem' }}>
+              <th style={{ padding: '0.5rem', border: '1px solid #444', fontSize: '0.85rem', color: '#f0f0f0' }}>
                 Original Owner
               </th>
-              <th style={{ padding: '0.5rem', border: '1px solid #ddd', fontSize: '0.85rem' }}>
+              <th style={{ padding: '0.5rem', border: '1px solid #444', fontSize: '0.85rem', color: '#f0f0f0' }}>
                 Actions
               </th>
             </tr>
@@ -191,12 +191,19 @@ export function TradeForm({ state, onSubmit, onCancel, onError }: TradeFormProps
                 isPickLockedByStepienRule(state, row.fromTeamId, row.year, row.round);
               
               return (
-              <tr key={index} style={{ backgroundColor: isLocked ? '#ffebee' : 'transparent' }}>
-                <td style={{ padding: '0.5rem', border: '1px solid #ddd' }}>
+              <tr key={index} style={{ backgroundColor: isLocked ? '#4a2a2a' : '#2a2a2a' }}>
+                <td style={{ padding: '0.5rem', border: '1px solid #444' }}>
                   <select
                     value={row.fromTeamId}
                     onChange={(e) => updateRow(index, 'fromTeamId', e.target.value)}
-                    style={{ width: '100%', padding: '0.25rem' }}
+                    style={{ 
+                      width: '100%', 
+                      padding: '0.25rem',
+                      backgroundColor: '#3a3a3a',
+                      color: '#f0f0f0',
+                      border: '1px solid #555',
+                      borderRadius: '4px',
+                    }}
                     required
                   >
                     <option value="">Select team</option>
@@ -207,11 +214,18 @@ export function TradeForm({ state, onSubmit, onCancel, onError }: TradeFormProps
                     ))}
                   </select>
                 </td>
-                <td style={{ padding: '0.5rem', border: '1px solid #ddd' }}>
+                <td style={{ padding: '0.5rem', border: '1px solid #444' }}>
                   <select
                     value={row.toTeamId}
                     onChange={(e) => updateRow(index, 'toTeamId', e.target.value)}
-                    style={{ width: '100%', padding: '0.25rem' }}
+                    style={{ 
+                      width: '100%', 
+                      padding: '0.25rem',
+                      backgroundColor: '#3a3a3a',
+                      color: '#f0f0f0',
+                      border: '1px solid #555',
+                      borderRadius: '4px',
+                    }}
                     required
                   >
                     <option value="">Select team</option>
@@ -222,11 +236,18 @@ export function TradeForm({ state, onSubmit, onCancel, onError }: TradeFormProps
                     ))}
                   </select>
                 </td>
-                <td style={{ padding: '0.5rem', border: '1px solid #ddd' }}>
+                <td style={{ padding: '0.5rem', border: '1px solid #444' }}>
                   <select
                     value={row.year}
                     onChange={(e) => updateRow(index, 'year', parseInt(e.target.value))}
-                    style={{ width: '100%', padding: '0.25rem' }}
+                    style={{ 
+                      width: '100%', 
+                      padding: '0.25rem',
+                      backgroundColor: '#3a3a3a',
+                      color: '#f0f0f0',
+                      border: '1px solid #555',
+                      borderRadius: '4px',
+                    }}
                     required
                   >
                     {years.map((year) => (
@@ -236,22 +257,36 @@ export function TradeForm({ state, onSubmit, onCancel, onError }: TradeFormProps
                     ))}
                   </select>
                 </td>
-                <td style={{ padding: '0.5rem', border: '1px solid #ddd' }}>
+                <td style={{ padding: '0.5rem', border: '1px solid #444' }}>
                   <select
                     value={row.round}
                     onChange={(e) => updateRow(index, 'round', parseInt(e.target.value))}
-                    style={{ width: '100%', padding: '0.25rem' }}
+                    style={{ 
+                      width: '100%', 
+                      padding: '0.25rem',
+                      backgroundColor: '#3a3a3a',
+                      color: '#f0f0f0',
+                      border: '1px solid #555',
+                      borderRadius: '4px',
+                    }}
                     required
                   >
                     <option value={1}>1</option>
                     <option value={2}>2</option>
                   </select>
                 </td>
-                <td style={{ padding: '0.5rem', border: '1px solid #ddd' }}>
+                <td style={{ padding: '0.5rem', border: '1px solid #444' }}>
                   <select
                     value={row.originalOwnerId}
                     onChange={(e) => updateRow(index, 'originalOwnerId', e.target.value)}
-                    style={{ width: '100%', padding: '0.25rem' }}
+                    style={{ 
+                      width: '100%', 
+                      padding: '0.25rem',
+                      backgroundColor: '#3a3a3a',
+                      color: '#f0f0f0',
+                      border: '1px solid #555',
+                      borderRadius: '4px',
+                    }}
                     required
                   >
                     <option value="">Select owner</option>
@@ -262,10 +297,10 @@ export function TradeForm({ state, onSubmit, onCancel, onError }: TradeFormProps
                     ))}
                   </select>
                 </td>
-                <td style={{ padding: '0.5rem', border: '1px solid #ddd' }}>
+                <td style={{ padding: '0.5rem', border: '1px solid #444' }}>
                   {isLocked && (
                     <div style={{ 
-                      color: '#d32f2f', 
+                      color: '#ff6b6b', 
                       fontSize: '0.75rem', 
                       fontWeight: 'bold',
                       marginBottom: '0.25rem',
@@ -314,7 +349,7 @@ export function TradeForm({ state, onSubmit, onCancel, onError }: TradeFormProps
       </div>
 
       <div style={{ marginBottom: '1rem' }}>
-        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>
+        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold', color: '#f0f0f0' }}>
           Notes (optional):
         </label>
         <textarea
@@ -323,10 +358,12 @@ export function TradeForm({ state, onSubmit, onCancel, onError }: TradeFormProps
           style={{
             width: '100%',
             padding: '0.5rem',
-            border: '1px solid #ddd',
+            border: '1px solid #555',
             borderRadius: '4px',
             fontFamily: 'inherit',
             fontSize: '0.9rem',
+            backgroundColor: '#3a3a3a',
+            color: '#f0f0f0',
           }}
           rows={3}
           placeholder="Add any notes about this trade..."

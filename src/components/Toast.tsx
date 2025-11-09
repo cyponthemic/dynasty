@@ -94,7 +94,7 @@ export function Toast({ message, type, onClose, duration = 5000 }: ToastProps) {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              backgroundColor: '#fafafa',
+              backgroundColor: '#333',
               padding: '0.5rem',
               minHeight: '80px',
             }}

@@ -118,14 +118,20 @@ function App() {
   };
 
   return (
-    <main style={{ padding: '2rem', fontFamily: 'system-ui, sans-serif' }}>
+    <main style={{ 
+      padding: '2rem', 
+      fontFamily: 'system-ui, sans-serif',
+      backgroundColor: '#242424',
+      color: '#f0f0f0',
+      minHeight: '100vh',
+    }}>
       <ToastContainer toasts={toasts} onClose={removeToast} />
       
-      <h1>Dynasty Draft Picks</h1>
+      <h1 style={{ color: '#f0f0f0', textAlign: 'center', marginBottom: '0.5rem' }}>Dynasty Draft Picks</h1>
 
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p style={{ color: '#ff6b6b' }}>{error}</p>}
 
-      {!state && !error && <p>Loading state…</p>}
+      {!state && !error && <p style={{ color: '#f0f0f0' }}>Loading state…</p>}
 
       {state && (
         <>
@@ -133,7 +139,7 @@ function App() {
           
           <section style={{ marginTop: '2rem' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-              <h2 style={{ margin: 0 }}>Trades ({state.trades.length})</h2>
+              <h2 style={{ margin: 0, color: '#f0f0f0' }}>Trades ({state.trades.length})</h2>
               {!showTradeForm && (
                 <button
                   onClick={() => setShowTradeForm(true)}
@@ -180,15 +186,15 @@ function App() {
                       alignItems: 'flex-start',
                       padding: '1rem',
                       marginBottom: '1rem',
-                      border: '1px solid #ddd',
+                      border: '1px solid #444',
                       borderRadius: '8px',
-                      backgroundColor: '#fff',
-                      boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+                      backgroundColor: '#2a2a2a',
+                      boxShadow: '0 1px 3px rgba(0,0,0,0.3)',
                     }}
                   >
                     <div style={{ flex: 1 }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
-                        <span style={{ color: '#666', fontSize: '0.9rem' }}>
+                        <span style={{ color: '#aaa', fontSize: '0.9rem' }}>
                           {new Date(t.createdAt).toLocaleDateString('en-US', { 
                             year: 'numeric', 
                             month: 'short', 
@@ -197,15 +203,15 @@ function App() {
                             minute: '2-digit'
                           })}
                         </span>
-                        <span style={{ color: '#999' }}>•</span>
-                        <span style={{ fontWeight: 'bold', color: '#333' }}>
+                        <span style={{ color: '#666' }}>•</span>
+                        <span style={{ fontWeight: 'bold', color: '#f0f0f0' }}>
                           {fromTeam?.name || t.fromTeamId}
                         </span>
-                        <span style={{ color: '#666' }}>→</span>
-                        <span style={{ fontWeight: 'bold', color: '#333' }}>
+                        <span style={{ color: '#aaa' }}>→</span>
+                        <span style={{ fontWeight: 'bold', color: '#f0f0f0' }}>
                           {toTeam?.name || t.toTeamId}
                         </span>
-                        <span style={{ color: '#666', fontSize: '0.9rem' }}>
+                        <span style={{ color: '#aaa', fontSize: '0.9rem' }}>
                           ({t.picks.length} {t.picks.length === 1 ? 'pick' : 'picks'})
                         </span>
                       </div>
@@ -222,9 +228,10 @@ function App() {
                               key={idx}
                               style={{
                                 padding: '0.25rem 0.5rem',
-                                backgroundColor: '#f0f0f0',
+                                backgroundColor: '#3a3a3a',
                                 borderRadius: '4px',
-                                color: '#555',
+                                color: '#e0e0e0',
+                                border: '1px solid #555',
                               }}
                             >
                               {pick.year} R{pick.round} ({getTeamName(pick.originalOwnerId)})
@@ -237,12 +244,12 @@ function App() {
                         <div style={{ 
                           marginTop: '0.5rem',
                           padding: '0.5rem',
-                          backgroundColor: '#f9f9f9',
+                          backgroundColor: '#333',
                           borderRadius: '4px',
-                          color: '#666',
+                          color: '#ccc',
                           fontSize: '0.9rem',
                           fontStyle: 'italic',
-                          borderLeft: '3px solid #007bff',
+                          borderLeft: '3px solid #4a9eff',
                         }}>
                           {t.notes}
                         </div>
