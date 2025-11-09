@@ -2,6 +2,7 @@
 import { getStore } from '@netlify/blobs';
 import type { Trade } from '../../src/types/state';
 import type { BlobState } from '../../src/types/blobState';
+import { validateNoDuplicatePicks } from '../../src/lib/tradeValidation';
 
 export default async (req: Request) => {
   if (req.method !== 'POST') {
@@ -27,12 +28,23 @@ export default async (req: Request) => {
     blob = { trades: [] };
   }
 
+  const picks = body.picks ?? [];
+
+  // Validate no duplicate picks
+  const duplicateValidation = validateNoDuplicatePicks(picks);
+  if (!duplicateValidation.ok) {
+    return new Response(
+      JSON.stringify({ error: duplicateValidation.error }),
+      { status: 400, headers: { 'Content-Type': 'application/json' } }
+    );
+  }
+
   const newTrade: Trade = {
     id: crypto.randomUUID(),
     createdAt: new Date().toISOString(),
     fromTeamId: body.fromTeamId,
     toTeamId: body.toTeamId,
-    picks: body.picks ?? [],
+    picks,
     notes: body.notes ?? ''
   };
 

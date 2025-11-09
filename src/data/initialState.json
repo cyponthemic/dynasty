@@ -1,8 +1,45 @@
 {
   "teams": [
-    { "id": "gtd_pussies", "name": "GTD PUSSIES" },
-    { "id": "slimreaper", "name": "SLIMREAPER" },
-    { "id": "onlyfranz", "name": "ONLYFRANZ" }
+    {
+      "id": "gtd_pussies",
+      "name": "GTD PUSSIES"
+    },
+    {
+      "id": "slimreaper",
+      "name": "SLIMREAPER"
+    },
+    {
+      "id": "onlyfranz",
+      "name": "ONLYFRANZ"
+    },
+    {
+      "id": "staypositive",
+      "name": "STAYPOSITIVE"
+    },
+    {
+      "id": "jollibeelegend",
+      "name": "JOLLIBEE LEGEND"
+    },
+    {
+      "id": "wanchaiwildcats",
+      "name": "WAN CHAI WILDCATS"
+    },
+    {
+      "id": "newyorkknicks",
+      "name": "NEW YORK (K)NICKS"
+    },
+    {
+      "id": "maozedong",
+      "name": "MAO ZE DONG"
+    },
+    {
+      "id": "row",
+      "name": "ROW"
+    },
+    {
+      "id": "joshssuperbteam",
+      "name": "JOSH'S SUPERB TEAM"
+    }
   ],
   "basePicks": [
     {
@@ -21,8 +58,349 @@
       "year": 2026,
       "round": 1,
       "originalOwnerId": "onlyfranz",
+      "currentOwnerId": "onlyfranz"
+    },
+    {
+      "year": 2026,
+      "round": 1,
+      "originalOwnerId": "staypositive",
+      "currentOwnerId": "staypositive"
+    },
+    {
+      "year": 2026,
+      "round": 1,
+      "originalOwnerId": "jollibeelegend",
+      "currentOwnerId": "jollibeelegend"
+    },
+    {
+      "year": 2026,
+      "round": 1,
+      "originalOwnerId": "wanchaiwildcats",
+      "currentOwnerId": "wanchaiwildcats"
+    },
+    {
+      "year": 2026,
+      "round": 1,
+      "originalOwnerId": "newyorkknicks",
+      "currentOwnerId": "newyorkknicks"
+    },
+    {
+      "year": 2026,
+      "round": 1,
+      "originalOwnerId": "maozedong",
+      "currentOwnerId": "maozedong"
+    },
+    {
+      "year": 2026,
+      "round": 1,
+      "originalOwnerId": "row",
+      "currentOwnerId": "row"
+    },
+    {
+      "year": 2026,
+      "round": 1,
+      "originalOwnerId": "joshssuperbteam",
+      "currentOwnerId": "joshssuperbteam"
+    },
+    {
+      "year": 2026,
+      "round": 2,
+      "originalOwnerId": "gtd_pussies",
       "currentOwnerId": "gtd_pussies"
+    },
+    {
+      "year": 2026,
+      "round": 2,
+      "originalOwnerId": "slimreaper",
+      "currentOwnerId": "slimreaper"
+    },
+    {
+      "year": 2026,
+      "round": 2,
+      "originalOwnerId": "onlyfranz",
+      "currentOwnerId": "onlyfranz"
+    },
+    {
+      "year": 2026,
+      "round": 2,
+      "originalOwnerId": "staypositive",
+      "currentOwnerId": "staypositive"
+    },
+    {
+      "year": 2026,
+      "round": 2,
+      "originalOwnerId": "jollibeelegend",
+      "currentOwnerId": "jollibeelegend"
+    },
+    {
+      "year": 2026,
+      "round": 2,
+      "originalOwnerId": "wanchaiwildcats",
+      "currentOwnerId": "wanchaiwildcats"
+    },
+    {
+      "year": 2026,
+      "round": 2,
+      "originalOwnerId": "newyorkknicks",
+      "currentOwnerId": "newyorkknicks"
+    },
+    {
+      "year": 2026,
+      "round": 2,
+      "originalOwnerId": "maozedong",
+      "currentOwnerId": "maozedong"
+    },
+    {
+      "year": 2026,
+      "round": 2,
+      "originalOwnerId": "row",
+      "currentOwnerId": "row"
+    },
+    {
+      "year": 2026,
+      "round": 2,
+      "originalOwnerId": "joshssuperbteam",
+      "currentOwnerId": "joshssuperbteam"
+    },
+    {
+      "year": 2027,
+      "round": 1,
+      "originalOwnerId": "gtd_pussies",
+      "currentOwnerId": "gtd_pussies"
+    },
+    {
+      "year": 2027,
+      "round": 1,
+      "originalOwnerId": "slimreaper",
+      "currentOwnerId": "slimreaper"
+    },
+    {
+      "year": 2027,
+      "round": 1,
+      "originalOwnerId": "onlyfranz",
+      "currentOwnerId": "onlyfranz"
+    },
+    {
+      "year": 2027,
+      "round": 1,
+      "originalOwnerId": "staypositive",
+      "currentOwnerId": "staypositive"
+    },
+    {
+      "year": 2027,
+      "round": 1,
+      "originalOwnerId": "jollibeelegend",
+      "currentOwnerId": "jollibeelegend"
+    },
+    {
+      "year": 2027,
+      "round": 1,
+      "originalOwnerId": "wanchaiwildcats",
+      "currentOwnerId": "wanchaiwildcats"
+    },
+    {
+      "year": 2027,
+      "round": 1,
+      "originalOwnerId": "newyorkknicks",
+      "currentOwnerId": "newyorkknicks"
+    },
+    {
+      "year": 2027,
+      "round": 1,
+      "originalOwnerId": "maozedong",
+      "currentOwnerId": "maozedong"
+    },
+    {
+      "year": 2027,
+      "round": 1,
+      "originalOwnerId": "row",
+      "currentOwnerId": "row"
+    },
+    {
+      "year": 2027,
+      "round": 1,
+      "originalOwnerId": "joshssuperbteam",
+      "currentOwnerId": "joshssuperbteam"
+    },
+    {
+      "year": 2027,
+      "round": 2,
+      "originalOwnerId": "gtd_pussies",
+      "currentOwnerId": "gtd_pussies"
+    },
+    {
+      "year": 2027,
+      "round": 2,
+      "originalOwnerId": "slimreaper",
+      "currentOwnerId": "slimreaper"
+    },
+    {
+      "year": 2027,
+      "round": 2,
+      "originalOwnerId": "onlyfranz",
+      "currentOwnerId": "onlyfranz"
+    },
+    {
+      "year": 2027,
+      "round": 2,
+      "originalOwnerId": "staypositive",
+      "currentOwnerId": "staypositive"
+    },
+    {
+      "year": 2027,
+      "round": 2,
+      "originalOwnerId": "jollibeelegend",
+      "currentOwnerId": "jollibeelegend"
+    },
+    {
+      "year": 2027,
+      "round": 2,
+      "originalOwnerId": "wanchaiwildcats",
+      "currentOwnerId": "wanchaiwildcats"
+    },
+    {
+      "year": 2027,
+      "round": 2,
+      "originalOwnerId": "newyorkknicks",
+      "currentOwnerId": "newyorkknicks"
+    },
+    {
+      "year": 2027,
+      "round": 2,
+      "originalOwnerId": "maozedong",
+      "currentOwnerId": "maozedong"
+    },
+    {
+      "year": 2027,
+      "round": 2,
+      "originalOwnerId": "row",
+      "currentOwnerId": "row"
+    },
+    {
+      "year": 2027,
+      "round": 2,
+      "originalOwnerId": "joshssuperbteam",
+      "currentOwnerId": "joshssuperbteam"
+    },
+    {
+      "year": 2028,
+      "round": 1,
+      "originalOwnerId": "gtd_pussies",
+      "currentOwnerId": "gtd_pussies"
+    },
+    {
+      "year": 2028,
+      "round": 1,
+      "originalOwnerId": "slimreaper",
+      "currentOwnerId": "slimreaper"
+    },
+    {
+      "year": 2028,
+      "round": 1,
+      "originalOwnerId": "onlyfranz",
+      "currentOwnerId": "onlyfranz"
+    },
+    {
+      "year": 2028,
+      "round": 1,
+      "originalOwnerId": "staypositive",
+      "currentOwnerId": "staypositive"
+    },
+    {
+      "year": 2028,
+      "round": 1,
+      "originalOwnerId": "jollibeelegend",
+      "currentOwnerId": "jollibeelegend"
+    },
+    {
+      "year": 2028,
+      "round": 1,
+      "originalOwnerId": "wanchaiwildcats",
+      "currentOwnerId": "wanchaiwildcats"
+    },
+    {
+      "year": 2028,
+      "round": 1,
+      "originalOwnerId": "newyorkknicks",
+      "currentOwnerId": "newyorkknicks"
+    },
+    {
+      "year": 2028,
+      "round": 1,
+      "originalOwnerId": "maozedong",
+      "currentOwnerId": "maozedong"
+    },
+    {
+      "year": 2028,
+      "round": 1,
+      "originalOwnerId": "row",
+      "currentOwnerId": "row"
+    },
+    {
+      "year": 2028,
+      "round": 1,
+      "originalOwnerId": "joshssuperbteam",
+      "currentOwnerId": "joshssuperbteam"
+    },
+    {
+      "year": 2028,
+      "round": 2,
+      "originalOwnerId": "gtd_pussies",
+      "currentOwnerId": "gtd_pussies"
+    },
+    {
+      "year": 2028,
+      "round": 2,
+      "originalOwnerId": "slimreaper",
+      "currentOwnerId": "slimreaper"
+    },
+    {
+      "year": 2028,
+      "round": 2,
+      "originalOwnerId": "onlyfranz",
+      "currentOwnerId": "onlyfranz"
+    },
+    {
+      "year": 2028,
+      "round": 2,
+      "originalOwnerId": "staypositive",
+      "currentOwnerId": "staypositive"
+    },
+    {
+      "year": 2028,
+      "round": 2,
+      "originalOwnerId": "jollibeelegend",
+      "currentOwnerId": "jollibeelegend"
+    },
+    {
+      "year": 2028,
+      "round": 2,
+      "originalOwnerId": "wanchaiwildcats",
+      "currentOwnerId": "wanchaiwildcats"
+    },
+    {
+      "year": 2028,
+      "round": 2,
+      "originalOwnerId": "newyorkknicks",
+      "currentOwnerId": "newyorkknicks"
+    },
+    {
+      "year": 2028,
+      "round": 2,
+      "originalOwnerId": "maozedong",
+      "currentOwnerId": "maozedong"
+    },
+    {
+      "year": 2028,
+      "round": 2,
+      "originalOwnerId": "row",
+      "currentOwnerId": "row"
+    },
+    {
+      "year": 2028,
+      "round": 2,
+      "originalOwnerId": "joshssuperbteam",
+      "currentOwnerId": "joshssuperbteam"
     }
   ]
 }
-
