@@ -1,0 +1,28 @@
+{
+  "teams": [
+    { "id": "gtd_pussies", "name": "GTD PUSSIES" },
+    { "id": "slimreaper", "name": "SLIMREAPER" },
+    { "id": "onlyfranz", "name": "ONLYFRANZ" }
+  ],
+  "basePicks": [
+    {
+      "year": 2026,
+      "round": 1,
+      "originalOwnerId": "gtd_pussies",
+      "currentOwnerId": "gtd_pussies"
+    },
+    {
+      "year": 2026,
+      "round": 1,
+      "originalOwnerId": "slimreaper",
+      "currentOwnerId": "slimreaper"
+    },
+    {
+      "year": 2026,
+      "round": 1,
+      "originalOwnerId": "onlyfranz",
+      "currentOwnerId": "gtd_pussies"
+    }
+  ]
+}
+
