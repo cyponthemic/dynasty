@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { State, TeamId, TradePickRef } from '../types/state';
-import { validateNoDuplicatePicks } from '../lib/tradeValidation';
+import { validateNoDuplicatePicks, validateStepienRule, isPickLockedByStepienRule } from '../lib/tradeValidation';
 
 type TradeFormProps = {
   state: State;
@@ -11,6 +11,7 @@ type TradeFormProps = {
     notes?: string;
   }) => Promise<void>;
   onCancel: () => void;
+  onError: (message: string) => void;
 };
 
 type PickRow = {
@@ -21,7 +22,7 @@ type PickRow = {
   originalOwnerId: TeamId;
 };
 
-export function TradeForm({ state, onSubmit, onCancel }: TradeFormProps) {
+export function TradeForm({ state, onSubmit, onCancel, onError }: TradeFormProps) {
   const [rows, setRows] = useState<PickRow[]>([
     {
       fromTeamId: state.teams[0]?.id || '',
@@ -73,7 +74,7 @@ export function TradeForm({ state, onSubmit, onCancel }: TradeFormProps) {
       );
 
       if (invalidRows.length > 0) {
-        alert('Please fill in all fields for all picks');
+        onError('Please fill in all fields for all picks');
         setIsSubmitting(false);
         return;
       }
@@ -89,7 +90,7 @@ export function TradeForm({ state, onSubmit, onCancel }: TradeFormProps) {
       );
 
       if (!allSameTeams) {
-        alert('All picks in a trade must be from the same team to the same team');
+        onError('All picks in a trade must be from the same team to the same team');
         setIsSubmitting(false);
         return;
       }
@@ -103,7 +104,15 @@ export function TradeForm({ state, onSubmit, onCancel }: TradeFormProps) {
       // Validate no duplicate picks
       const duplicateValidation = validateNoDuplicatePicks(picks);
       if (!duplicateValidation.ok) {
-        alert(duplicateValidation.error);
+        onError(duplicateValidation.error || 'Duplicate picks found in trade');
+        setIsSubmitting(false);
+        return;
+      }
+
+      // Validate Stepien rule
+      const stepienValidation = validateStepienRule(state, fromTeamId, picks);
+      if (!stepienValidation.ok) {
+        onError(stepienValidation.error || 'Stepien rule violation');
         setIsSubmitting(false);
         return;
       }
@@ -177,8 +186,12 @@ export function TradeForm({ state, onSubmit, onCancel }: TradeFormProps) {
             </tr>
           </thead>
           <tbody>
-            {rows.map((row, index) => (
-              <tr key={index}>
+            {rows.map((row, index) => {
+              const isLocked = row.fromTeamId && row.round === 1 && 
+                isPickLockedByStepienRule(state, row.fromTeamId, row.year, row.round);
+              
+              return (
+              <tr key={index} style={{ backgroundColor: isLocked ? '#ffebee' : 'transparent' }}>
                 <td style={{ padding: '0.5rem', border: '1px solid #ddd' }}>
                   <select
                     value={row.fromTeamId}
@@ -250,6 +263,16 @@ export function TradeForm({ state, onSubmit, onCancel }: TradeFormProps) {
                   </select>
                 </td>
                 <td style={{ padding: '0.5rem', border: '1px solid #ddd' }}>
+                  {isLocked && (
+                    <div style={{ 
+                      color: '#d32f2f', 
+                      fontSize: '0.75rem', 
+                      fontWeight: 'bold',
+                      marginBottom: '0.25rem',
+                    }}>
+                      🔒 LOCKED (Stepien Rule)
+                    </div>
+                  )}
                   {rows.length > 1 && (
                     <button
                       type="button"
@@ -269,7 +292,8 @@ export function TradeForm({ state, onSubmit, onCancel }: TradeFormProps) {
                   )}
                 </td>
               </tr>
-            ))}
+            );
+            })}
           </tbody>
         </table>
         <button

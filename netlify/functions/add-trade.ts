@@ -1,8 +1,9 @@
 // netlify/functions/add-trade.ts
 import { getStore } from '@netlify/blobs';
+import { initialState } from '../../src/data/initialState';
 import type { Trade } from '../../src/types/state';
 import type { BlobState } from '../../src/types/blobState';
-import { validateNoDuplicatePicks } from '../../src/lib/tradeValidation';
+import { validateNoDuplicatePicks, validateStepienRule } from '../../src/lib/tradeValidation';
 
 export default async (req: Request) => {
   if (req.method !== 'POST') {
@@ -35,6 +36,22 @@ export default async (req: Request) => {
   if (!duplicateValidation.ok) {
     return new Response(
       JSON.stringify({ error: duplicateValidation.error }),
+      { status: 400, headers: { 'Content-Type': 'application/json' } }
+    );
+  }
+
+  // Build full state for validation
+  const fullState = {
+    teams: initialState.teams,
+    basePicks: initialState.basePicks,
+    trades: blob.trades,
+  };
+
+  // Validate Stepien rule
+  const stepienValidation = validateStepienRule(fullState, body.fromTeamId, picks);
+  if (!stepienValidation.ok) {
+    return new Response(
+      JSON.stringify({ error: stepienValidation.error }),
       { status: 400, headers: { 'Content-Type': 'application/json' } }
     );
   }

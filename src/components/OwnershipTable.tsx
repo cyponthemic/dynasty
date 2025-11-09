@@ -1,4 +1,5 @@
 import type { State, TeamId } from '../types/state';
+import { isPickLockedByStepienRule } from '../lib/tradeValidation';
 
 type OwnershipTableProps = {
   state: State;
@@ -49,15 +50,11 @@ export function OwnershipTable({ state }: OwnershipTableProps) {
     return team?.name || teamId;
   };
 
-  // Get original owner IDs for each year/round combination
-  const getOriginalOwners = (year: number, round: number): TeamId[] => {
-    return Array.from(
-      new Set(
-        state.basePicks
-          .filter(p => p.year === year && p.round === round)
-          .map(p => p.originalOwnerId)
-      )
-    ).sort();
+  // Get picks for a specific team, year, and round
+  const getPicksForTeam = (teamId: TeamId, year: number, round: number) => {
+    return state.basePicks.filter(
+      p => p.year === year && p.round === round && p.originalOwnerId === teamId
+    );
   };
 
   return (
@@ -73,8 +70,10 @@ export function OwnershipTable({ state }: OwnershipTableProps) {
           }}
         >
           <thead>
+            {/* Year header row */}
             <tr>
               <th
+                rowSpan={2}
                 style={{
                   border: '1px solid #ddd',
                   padding: '0.5rem',
@@ -85,27 +84,48 @@ export function OwnershipTable({ state }: OwnershipTableProps) {
                   zIndex: 10,
                 }}
               >
-                Year / Round
+                Team
               </th>
-              {rounds.map(round => (
+              {years.map(year => (
                 <th
-                  key={round}
+                  key={year}
+                  colSpan={rounds.length}
                   style={{
                     border: '1px solid #ddd',
                     padding: '0.5rem',
                     backgroundColor: '#f5f5f5',
                     textAlign: 'center',
-                    minWidth: '120px',
+                    fontWeight: 'bold',
                   }}
                 >
-                  Round {round}
+                  {year}
                 </th>
               ))}
             </tr>
+            {/* Round sub-header row */}
+            <tr>
+              {years.map(year =>
+                rounds.map(round => (
+                  <th
+                    key={`${year}-${round}`}
+                    style={{
+                      border: '1px solid #ddd',
+                      padding: '0.5rem',
+                      backgroundColor: '#f8f8f8',
+                      textAlign: 'center',
+                      minWidth: '120px',
+                      fontSize: '0.85rem',
+                    }}
+                  >
+                    R{round}
+                  </th>
+                ))
+              )}
+            </tr>
           </thead>
           <tbody>
-            {years.map(year => (
-              <tr key={year}>
+            {state.teams.map(team => (
+              <tr key={team.id}>
                 <td
                   style={{
                     border: '1px solid #ddd',
@@ -117,55 +137,80 @@ export function OwnershipTable({ state }: OwnershipTableProps) {
                     zIndex: 5,
                   }}
                 >
-                  {year}
+                  {team.name}
                 </td>
-                {rounds.map(round => {
-                  const originalOwners = getOriginalOwners(year, round);
-                  return (
-                    <td
-                      key={`${year}-${round}`}
-                      style={{
-                        border: '1px solid #ddd',
-                        padding: '0.5rem',
-                        verticalAlign: 'top',
-                      }}
-                    >
-                      {originalOwners.length > 0 ? (
-                        <div>
-                          {originalOwners.map(originalOwnerId => {
-                            const key = `${year}-${round}-${originalOwnerId}`;
-                            const currentOwner = ownership.get(key);
-                            const isOriginal = currentOwner === originalOwnerId;
-                            
-                            return (
-                              <div
-                                key={originalOwnerId}
-                                style={{
-                                  marginBottom: '0.25rem',
-                                  padding: '0.25rem',
-                                  backgroundColor: isOriginal ? '#e8f5e9' : '#fff3e0',
-                                  borderRadius: '3px',
-                                  fontSize: '0.85rem',
-                                }}
-                              >
-                                <div style={{ fontWeight: 'bold', color: '#666' }}>
-                                  {getTeamName(originalOwnerId)}
+                {years.map(year =>
+                  rounds.map(round => {
+                    const picks = getPicksForTeam(team.id, year, round);
+                    return (
+                      <td
+                        key={`${team.id}-${year}-${round}`}
+                        style={{
+                          border: '1px solid #ddd',
+                          padding: '0.5rem',
+                          verticalAlign: 'top',
+                        }}
+                      >
+                        {picks.length > 0 ? (
+                          <div>
+                            {picks.map((pick, idx) => {
+                              const key = `${pick.year}-${pick.round}-${pick.originalOwnerId}`;
+                              const currentOwner = ownership.get(key);
+                              const isOriginal = currentOwner === pick.originalOwnerId;
+                              const isLocked = isPickLockedByStepienRule(state, team.id, pick.year, pick.round);
+                              
+                              return (
+                                <div
+                                  key={idx}
+                                  style={{
+                                    marginBottom: '0.25rem',
+                                    padding: '0.25rem',
+                                    backgroundColor: isLocked 
+                                      ? '#ffebee' 
+                                      : isOriginal 
+                                        ? '#e8f5e9' 
+                                        : '#fff3e0',
+                                    borderRadius: '3px',
+                                    fontSize: '0.85rem',
+                                    border: isLocked ? '2px solid #f44336' : 'none',
+                                    opacity: isLocked ? 0.7 : 1,
+                                  }}
+                                >
+                                  {isLocked && (
+                                    <div style={{ 
+                                      color: '#d32f2f', 
+                                      fontSize: '0.7rem', 
+                                      fontWeight: 'bold',
+                                      marginBottom: '0.25rem',
+                                    }}>
+                                      🔒 LOCKED
+                                    </div>
+                                  )}
+                                  {isOriginal ? (
+                                    <div style={{ fontWeight: 'bold', color: '#2e7d32' }}>
+                                      ✓ Own
+                                    </div>
+                                  ) : (
+                                    <div>
+                                      <div style={{ color: '#666', fontSize: '0.75rem' }}>
+                                        Original
+                                      </div>
+                                      <div style={{ color: '#d84315', fontWeight: 'bold' }}>
+                                        → {getTeamName(currentOwner || '')}
+                                      </div>
+                                    </div>
+                                  )}
                                 </div>
-                                {!isOriginal && currentOwner && (
-                                  <div style={{ color: '#d84315', fontSize: '0.8rem' }}>
-                                    → {getTeamName(currentOwner)}
-                                  </div>
-                                )}
-                              </div>
-                            );
-                          })}
-                        </div>
-                      ) : (
-                        <span style={{ color: '#999' }}>—</span>
-                      )}
-                    </td>
-                  );
-                })}
+                              );
+                            })}
+                          </div>
+                        ) : (
+                          <span style={{ color: '#ccc' }}>—</span>
+                        )}
+                      </td>
+                    );
+                  })
+                )}
               </tr>
             ))}
           </tbody>

@@ -13,6 +13,8 @@
     "test:run": "vitest run"
   },
   "dependencies": {
+    "@giphy/js-fetch-api": "^5.7.0",
+    "@giphy/react-components": "^10.1.0",
     "@netlify/blobs": "^10.3.3",
     "react": "^19.1.1",
     "react-dom": "^19.1.1"

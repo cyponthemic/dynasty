@@ -2,12 +2,29 @@ import { useEffect, useState } from 'react';
 import type { State, Trade, TeamId, TradePickRef } from './types/state';
 import { OwnershipTable } from './components/OwnershipTable';
 import { TradeForm } from './components/TradeForm';
+import { ToastContainer } from './components/Toast';
 import './App.css';
+
+type Toast = {
+  id: string;
+  message: string;
+  type: 'error' | 'success' | 'info';
+};
 
 function App() {
   const [state, setState] = useState<State | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [showTradeForm, setShowTradeForm] = useState(false);
+  const [toasts, setToasts] = useState<Toast[]>([]);
+
+  const showToast = (message: string, type: 'error' | 'success' | 'info' = 'error') => {
+    const id = crypto.randomUUID();
+    setToasts((prev) => [...prev, { id, message, type }]);
+  };
+
+  const removeToast = (id: string) => {
+    setToasts((prev) => prev.filter((toast) => toast.id !== id));
+  };
 
   useEffect(() => {
     fetch('/.netlify/functions/get-state', {
@@ -20,7 +37,9 @@ function App() {
       .then((data: State) => setState(data))
       .catch((err) => {
         console.error(err);
-        setError('Failed to load state');
+        const errorMessage = 'Failed to load state';
+        setError(errorMessage);
+        showToast(errorMessage, 'error');
       });
   }, []);
 
@@ -35,7 +54,9 @@ function App() {
       setState(fresh);
     } catch (err) {
       console.error(err);
-      setError('Failed to reload state');
+      const errorMessage = 'Failed to reload state';
+      setError(errorMessage);
+      showToast(errorMessage, 'error');
     }
   };
 
@@ -58,12 +79,15 @@ function App() {
 
     if (!res.ok) {
       const body = await res.json();
-      setError(body.error ?? 'Failed to add trade');
-      throw new Error(body.error ?? 'Failed to add trade');
+      const errorMessage = body.error ?? 'Failed to add trade';
+      setError(errorMessage);
+      showToast(errorMessage, 'error');
+      throw new Error(errorMessage);
     }
 
     await reloadState();
     setShowTradeForm(false);
+    showToast('Trade added successfully!', 'success');
   };
 
   const handleDeleteTrade = async (tradeId: string) => {
@@ -83,15 +107,20 @@ function App() {
 
     if (!res.ok) {
       const body = await res.json();
-      setError(body.error ?? 'Failed to delete trade');
+      const errorMessage = body.error ?? 'Failed to delete trade';
+      setError(errorMessage);
+      showToast(errorMessage, 'error');
       return;
     }
 
     await reloadState();
+    showToast('Trade deleted successfully!', 'success');
   };
 
   return (
     <main style={{ padding: '2rem', fontFamily: 'system-ui, sans-serif' }}>
+      <ToastContainer toasts={toasts} onClose={removeToast} />
+      
       <h1>Dynasty Draft Picks</h1>
 
       {error && <p style={{ color: 'red' }}>{error}</p>}
@@ -129,6 +158,7 @@ function App() {
                 state={state}
                 onSubmit={handleSubmitTrade}
                 onCancel={() => setShowTradeForm(false)}
+                onError={(message) => showToast(message, 'error')}
               />
             )}
 
