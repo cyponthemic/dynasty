@@ -118,14 +118,49 @@ function App() {
   };
 
   return (
-    <main style={{ 
-      padding: '2rem', 
-      fontFamily: 'system-ui, sans-serif',
-      backgroundColor: '#242424',
-      color: '#f0f0f0',
-      minHeight: '100vh',
-    }}>
-      <ToastContainer toasts={toasts} onClose={removeToast} />
+    <>
+      <style>{`
+        @media (min-width: 768px) {
+          main {
+            padding: 2rem !important;
+          }
+          
+          /* Trade cards: horizontal layout on desktop */
+          .trade-card {
+            flex-direction: row !important;
+            align-items: flex-start !important;
+          }
+          
+          .trade-card .trade-content {
+            flex: 1;
+          }
+          
+          .trade-card .trade-button {
+            margin-top: 0 !important;
+            margin-left: 1rem !important;
+            width: auto !important;
+            align-self: flex-start !important;
+          }
+          
+          .trade-header {
+            flex-wrap: nowrap !important;
+          }
+          
+          .trade-header .separator {
+            display: inline !important;
+          }
+        }
+      `}</style>
+      <main style={{ 
+        padding: '1rem',
+        fontFamily: 'system-ui, sans-serif',
+        backgroundColor: '#242424',
+        color: '#f0f0f0',
+        minHeight: '100vh',
+        maxWidth: '100vw',
+        overflowX: 'hidden',
+      }}>
+        <ToastContainer toasts={toasts} onClose={removeToast} />
       
       <h1 style={{ color: '#f0f0f0', textAlign: 'center', marginBottom: '0.5rem' }}>Dynasty Draft Picks</h1>
 
@@ -180,10 +215,10 @@ function App() {
                 return (
                   <li
                     key={t.id}
+                    className="trade-card"
                     style={{
                       display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'flex-start',
+                      flexDirection: 'column',
                       padding: '1rem',
                       marginBottom: '1rem',
                       border: '1px solid #444',
@@ -192,9 +227,16 @@ function App() {
                       boxShadow: '0 1px 3px rgba(0,0,0,0.3)',
                     }}
                   >
-                    <div style={{ flex: 1 }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
-                        <span style={{ color: '#aaa', fontSize: '0.9rem' }}>
+                    <div className="trade-content" style={{ flex: 1, width: '100%' }}>
+                      <div className="trade-header" style={{ 
+                        display: 'flex', 
+                        flexWrap: 'wrap',
+                        alignItems: 'center', 
+                        gap: '0.5rem', 
+                        marginBottom: '0.75rem',
+                        rowGap: '0.25rem',
+                      }}>
+                        <span style={{ color: '#aaa', fontSize: '0.85rem', flexShrink: 0 }}>
                           {new Date(t.createdAt).toLocaleDateString('en-US', { 
                             year: 'numeric', 
                             month: 'short', 
@@ -203,15 +245,15 @@ function App() {
                             minute: '2-digit'
                           })}
                         </span>
-                        <span style={{ color: '#666' }}>•</span>
-                        <span style={{ fontWeight: 'bold', color: '#f0f0f0' }}>
+                        <span className="separator" style={{ color: '#666', display: 'none' }}>•</span>
+                        <span style={{ fontWeight: 'bold', color: '#f0f0f0', flexShrink: 0 }}>
                           {fromTeam?.name || t.fromTeamId}
                         </span>
-                        <span style={{ color: '#aaa' }}>→</span>
-                        <span style={{ fontWeight: 'bold', color: '#f0f0f0' }}>
+                        <span style={{ color: '#aaa', flexShrink: 0 }}>→</span>
+                        <span style={{ fontWeight: 'bold', color: '#f0f0f0', flexShrink: 0 }}>
                           {toTeam?.name || t.toTeamId}
                         </span>
-                        <span style={{ color: '#aaa', fontSize: '0.9rem' }}>
+                        <span style={{ color: '#aaa', fontSize: '0.85rem', flexShrink: 0 }}>
                           ({t.picks.length} {t.picks.length === 1 ? 'pick' : 'picks'})
                         </span>
                       </div>
@@ -257,6 +299,7 @@ function App() {
                     </div>
                     
                     <button
+                      className="trade-button"
                       onClick={() => handleDeleteTrade(t.id)}
                       style={{
                         padding: '0.5rem 1rem',
@@ -266,8 +309,9 @@ function App() {
                         borderRadius: '4px',
                         cursor: 'pointer',
                         fontSize: '0.9rem',
-                        marginLeft: '1rem',
+                        marginTop: '0.75rem',
                         alignSelf: 'flex-start',
+                        width: '100%',
                       }}
                       onMouseOver={(e) => {
                         e.currentTarget.style.backgroundColor = '#c82333';
@@ -285,7 +329,8 @@ function App() {
           </section>
         </>
       )}
-    </main>
+      </main>
+    </>
   );
 }
 

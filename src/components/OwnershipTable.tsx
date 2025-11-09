@@ -60,13 +60,24 @@ export function OwnershipTable({ state }: OwnershipTableProps) {
   return (
     <section style={{ marginTop: '2rem' }}>
       <h2 style={{ color: '#f0f0f0', textAlign: 'center' }}>Pick Ownership Matrix</h2>
-      <div style={{ overflowX: 'auto' }}>
+      <div 
+        style={{ 
+          overflowX: 'auto',
+          overflowY: 'visible',
+          WebkitOverflowScrolling: 'touch',
+          scrollBehavior: 'smooth',
+          position: 'relative',
+          marginTop: '1rem',
+          borderRadius: '8px',
+          border: '1px solid #444',
+        }}
+      >
         <table
           style={{
             borderCollapse: 'collapse',
             width: '100%',
+            minWidth: '800px',
             fontSize: '0.9rem',
-            marginTop: '1rem',
             backgroundColor: '#2a2a2a',
             borderRadius: '8px',
             overflow: 'hidden',
@@ -86,6 +97,8 @@ export function OwnershipTable({ state }: OwnershipTableProps) {
                   position: 'sticky',
                   left: 0,
                   zIndex: 10,
+                  minWidth: '150px',
+                  boxShadow: '2px 0 4px rgba(0, 0, 0, 0.3)',
                 }}
               >
                 Team
@@ -142,6 +155,8 @@ export function OwnershipTable({ state }: OwnershipTableProps) {
                     position: 'sticky',
                     left: 0,
                     zIndex: 5,
+                    minWidth: '150px',
+                    boxShadow: '2px 0 4px rgba(0, 0, 0, 0.3)',
                   }}
                 >
                   {team.name}
@@ -157,6 +172,7 @@ export function OwnershipTable({ state }: OwnershipTableProps) {
                           padding: '0.5rem',
                           verticalAlign: 'top',
                           backgroundColor: '#2a2a2a',
+                          minWidth: '120px',
                         }}
                       >
                         {picks.length > 0 ? (
