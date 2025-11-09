@@ -27,7 +27,12 @@ export default async () => {
   };
 
   return new Response(JSON.stringify(fullState), {
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-cache, no-store, must-revalidate',
+      'Pragma': 'no-cache',
+      'Expires': '0',
+    },
   });
 };
 

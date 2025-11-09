@@ -64,7 +64,12 @@ export default async (req: Request) => {
   await store.set('state', JSON.stringify(nextBlob));
 
   return new Response(JSON.stringify({ ok: true, trade: newTrade }), {
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-cache, no-store, must-revalidate',
+      'Pragma': 'no-cache',
+      'Expires': '0',
+    },
   });
 };
 

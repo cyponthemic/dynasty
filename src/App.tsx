@@ -10,7 +10,12 @@ function App() {
   const [showTradeForm, setShowTradeForm] = useState(false);
 
   useEffect(() => {
-    fetch('/.netlify/functions/get-state')
+    fetch('/.netlify/functions/get-state', {
+      cache: 'no-store',
+      headers: {
+        'Cache-Control': 'no-cache',
+      },
+    })
       .then((res) => res.json())
       .then((data: State) => setState(data))
       .catch((err) => {
@@ -21,9 +26,12 @@ function App() {
 
   const reloadState = async () => {
     try {
-      const fresh = await fetch('/.netlify/functions/get-state').then((r) =>
-        r.json()
-      );
+      const fresh = await fetch('/.netlify/functions/get-state', {
+        cache: 'no-store',
+        headers: {
+          'Cache-Control': 'no-cache',
+        },
+      }).then((r) => r.json());
       setState(fresh);
     } catch (err) {
       console.error(err);
@@ -40,7 +48,11 @@ function App() {
     setError(null);
     const res = await fetch('/.netlify/functions/add-trade', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Cache-Control': 'no-cache',
+      },
+      cache: 'no-store',
       body: JSON.stringify(trade),
     });
 
@@ -61,7 +73,11 @@ function App() {
 
     const res = await fetch('/.netlify/functions/delete-trade', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Cache-Control': 'no-cache',
+      },
+      cache: 'no-store',
       body: JSON.stringify({ tradeId }),
     });
 
