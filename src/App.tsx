@@ -120,33 +120,107 @@ function App() {
               {state.trades.map((t: Trade) => {
                 const fromTeam = state.teams.find(team => team.id === t.fromTeamId);
                 const toTeam = state.teams.find(team => team.id === t.toTeamId);
+                const getTeamName = (teamId: TeamId) => {
+                  const team = state.teams.find(t => t.id === teamId);
+                  return team?.name || teamId;
+                };
+                
                 return (
                   <li
                     key={t.id}
                     style={{
                       display: 'flex',
                       justifyContent: 'space-between',
-                      alignItems: 'center',
-                      padding: '0.5rem',
-                      marginBottom: '0.5rem',
+                      alignItems: 'flex-start',
+                      padding: '1rem',
+                      marginBottom: '1rem',
                       border: '1px solid #ddd',
-                      borderRadius: '4px',
+                      borderRadius: '8px',
+                      backgroundColor: '#fff',
+                      boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
                     }}
                   >
-                    <span>
-                      {new Date(t.createdAt).toLocaleDateString()} — {fromTeam?.name || t.fromTeamId} ➜ {toTeam?.name || t.toTeamId}{' '}
-                      ({t.picks.length} picks)
-                      {t.notes && <span style={{ color: '#666' }}> — {t.notes}</span>}
-                    </span>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
+                        <span style={{ color: '#666', fontSize: '0.9rem' }}>
+                          {new Date(t.createdAt).toLocaleDateString('en-US', { 
+                            year: 'numeric', 
+                            month: 'short', 
+                            day: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                          })}
+                        </span>
+                        <span style={{ color: '#999' }}>•</span>
+                        <span style={{ fontWeight: 'bold', color: '#333' }}>
+                          {fromTeam?.name || t.fromTeamId}
+                        </span>
+                        <span style={{ color: '#666' }}>→</span>
+                        <span style={{ fontWeight: 'bold', color: '#333' }}>
+                          {toTeam?.name || t.toTeamId}
+                        </span>
+                        <span style={{ color: '#666', fontSize: '0.9rem' }}>
+                          ({t.picks.length} {t.picks.length === 1 ? 'pick' : 'picks'})
+                        </span>
+                      </div>
+                      
+                      <div style={{ marginBottom: '0.5rem' }}>
+                        <div style={{ 
+                          display: 'flex', 
+                          flexWrap: 'wrap', 
+                          gap: '0.5rem',
+                          fontSize: '0.85rem'
+                        }}>
+                          {t.picks.map((pick, idx) => (
+                            <span
+                              key={idx}
+                              style={{
+                                padding: '0.25rem 0.5rem',
+                                backgroundColor: '#f0f0f0',
+                                borderRadius: '4px',
+                                color: '#555',
+                              }}
+                            >
+                              {pick.year} R{pick.round} ({getTeamName(pick.originalOwnerId)})
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                      
+                      {t.notes && (
+                        <div style={{ 
+                          marginTop: '0.5rem',
+                          padding: '0.5rem',
+                          backgroundColor: '#f9f9f9',
+                          borderRadius: '4px',
+                          color: '#666',
+                          fontSize: '0.9rem',
+                          fontStyle: 'italic',
+                          borderLeft: '3px solid #007bff',
+                        }}>
+                          {t.notes}
+                        </div>
+                      )}
+                    </div>
+                    
                     <button
                       onClick={() => handleDeleteTrade(t.id)}
                       style={{
-                        padding: '0.25rem 0.5rem',
+                        padding: '0.5rem 1rem',
                         backgroundColor: '#dc3545',
                         color: 'white',
                         border: 'none',
                         borderRadius: '4px',
                         cursor: 'pointer',
+                        fontSize: '0.9rem',
+                        marginLeft: '1rem',
+                        alignSelf: 'flex-start',
+                      }}
+                      onMouseOver={(e) => {
+                        e.currentTarget.style.backgroundColor = '#c82333';
+                      }}
+                      onMouseOut={(e) => {
+                        e.currentTarget.style.backgroundColor = '#dc3545';
                       }}
                     >
                       Delete
